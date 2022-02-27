@@ -1,5 +1,6 @@
 import 'dotenv/config.js'
-import express, { urlencoded } from 'express'
+import express from 'express'
+import cors from 'cors'
 
 //import database
 import ('./config/database.js')
@@ -13,10 +14,10 @@ import {router as pokemonRouter} from './routes/pokemon.js'
 //setup middleware
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
+app.use(cors())
 
 //mount routers
 app.use('/pokemon', pokemonRouter)
-
 
 //setup server
 const PORT = process.env.PORT || 6001
