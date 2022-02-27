@@ -18,7 +18,7 @@ app.use(express.urlencoded({extended: false}))
 app.use(cors())
 
 //mount routers
-app.use('/pokemon', pokemonRouter)
+app.use('/api/pokemon', pokemonRouter)
 
 //setup server
 const PORT = process.env.PORT || 6001
