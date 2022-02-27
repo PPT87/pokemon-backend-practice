@@ -1,4 +1,5 @@
 import 'dotenv/config.js'
+import createError from 'http-errors'
 import express from 'express'
 import cors from 'cors'
 
@@ -23,3 +24,9 @@ app.use('/pokemon', pokemonRouter)
 const PORT = process.env.PORT || 6001
 
 app.listen(PORT, () => console.log(`server listening on port ${PORT}`))
+
+//error handler
+app.use(function (err, req, res, next) {
+  //send the error status and message
+  res.status(err.status || 500).json({"err": err.message})
+})
