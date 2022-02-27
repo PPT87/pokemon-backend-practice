@@ -1,43 +1,49 @@
+import e from "express"
 import { Pokemon } from "../models/Pokemon.js"
 
 const index = async (req, res) => {
-  try{
-    await res.send('this is the pokemon main')
-  } catch (error) {
-    return res.status(500).json(error)
-  }
+  Pokemon.find({})
+  .then(pokemons => res.status(200).json(pokemons))
+  .catch(err=>{
+    console.log(err)
+    res.status(500).json(err)
+  })
 }
 
 const create = async (req, res) => {
-  try{
-    await res.send('creating new pokemon')
-  } catch (error) {
-    return res.status(500).json(error)
-  }
+  Pokemon.create(req.body)
+  .then(pokemon=>res.status(201).json(pokemon))
+  .catch(err=>{
+    console.log(err)
+    res.status(500).json(err)
+  })
 }
 
 const details = async (req, res) => {
-  try{
-    await res.send(`viewing pokemon ${req.params.id}`)
-  } catch (error) {
-    return res.status(500).json(error)
-  }
+  Pokemon.findById(req.params.id)
+  .then(pokemon=>res.status(200).json(pokemon))
+  .catch(err=>{
+    console.log(err)
+    res.status(500).json(err)
+  })
 }
 
 const deletePokemon = async (req, res) => {
-  try{
-    await res.send(`deleting pokemon ${req.params.id}`)
-  } catch (error) {
-    return res.status(500).json(error)
-  }
+  Pokemon.findByIdAndDelete(req.params.id)
+  .then(pokemon=>res.status(204).json(pokemon))
+  .catch(err=>{
+    console.log(err)
+    res.status(500).json(err)
+  })
 }
 
 const update = async (req, res) => {
-  try{
-    await res.send(`viewing pokemon ${req.params.id}`);
-  } catch (error) {
-    return res.status(500).json(error)
-  }
+  Pokemon.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then((pokemon) => res.status(204).json(pokemon))
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 }
 
 export {
