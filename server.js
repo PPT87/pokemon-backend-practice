@@ -25,6 +25,11 @@ const PORT = process.env.PORT || 6001
 
 app.listen(PORT, () => console.log(`server listening on port ${PORT}`))
 
+//catch 404 and forward to error handler
+app.use(function (req, res, next) {
+  next(createError(404))
+})
+
 //error handler
 app.use(function (err, req, res, next) {
   //send the error status and message
