@@ -14,10 +14,10 @@ const app = express()
 import {router as pokemonRouter} from './routes/pokemon.js'
 
 //setup middleware
+app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(logger('dev'))
-app.use(cors())
 
 //mount routers
 app.use('/api/pokemon', pokemonRouter)

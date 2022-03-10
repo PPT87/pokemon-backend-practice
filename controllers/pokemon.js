@@ -38,7 +38,7 @@ const details = async (req, res) => {
 const deletePokemon = async (req, res) => {
   try{
     const pokemon = await Pokemon.findByIdAndDelete(req.params.id);
-    res.status(204).json(pokemon);
+    res.status(200).json(pokemon);
   } catch (err){
     console.log(err)
     res.status(500).json(err)
