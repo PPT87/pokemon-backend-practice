@@ -4,8 +4,16 @@ import { Pokemon } from "../models/Pokemon.js"
 //show all pokemon
 const index = async (req, res) => {
   try{
+    const PAGE_SIZE = 3;
+    const page = parseInt(req.query.page || '0')
+    const totalPages = await Pokemon.countDocuments({})
     const pokemons = await Pokemon.find({})
-    res.status(200).json(pokemons)
+    .limit(PAGE_SIZE)
+    .skip(PAGE_SIZE * page)
+    res.status(200).json({
+      totalPages: Math.ceil(totalPages/PAGE_SIZE),
+      pokemons
+    })
   } catch (err) {
     console.log(err)
     res.status(500).json(err)
